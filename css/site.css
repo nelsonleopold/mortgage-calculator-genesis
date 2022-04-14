@@ -1,0 +1,74 @@
+:root {
+    --nl-primary-color: #001e43;
+    --nl-secondary-color: #5065a8;
+    --nl-dark-color: #292929;
+    --nl-light-color: #dfe3e4;
+    --nl-highlight-color: #ff993b;
+}
+
+body {
+    color: var(--nl-dark-color);
+    font-size: 1.2rem;
+}
+
+main>.container {
+    padding: 60px 15px 0;
+    margin-bottom: 5rem;
+}
+
+.form-label {
+    color: var(--nl-secondary-color);
+}
+
+.sticky-footer {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--nl-dark-color);
+    color: var(--nl-light-color);
+}
+
+.tech-icons {
+    font-size: 5rem;
+}
+
+.bootstrap-tech-icon {
+    background-color: var(--nl-light-color);
+}
+
+.javascript-tech-icon {
+    background-color: var(--nl-light-color);
+}
+
+.html5-tech-icon {
+    background-color: var(--nl-light-color);
+}
+
+.css3-tech-icon {
+    background-color: var(--nl-light-color);
+}
+
+.social-icons>a {
+    color: var(--nl-light-color);
+    font-size: 1.5rem;
+}
+
+.social-icons>a:hover {
+    color: var(--nl-secondary-color);
+}
+
+.checklist {
+    list-style: none;
+}
+
+.checklist i {
+    color: var(--nl-highlight-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.message {
+    font-size: 2rem;
+    font-weight: bold;
+}
