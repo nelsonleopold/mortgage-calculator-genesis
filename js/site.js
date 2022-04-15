@@ -1,30 +1,94 @@
-// Step One, get the information (controller, accept requests)
-function getMessage() {
+// get the loan values from the page
+function getValues() {
 
-    let msg = document.getElementById("txtMessage").value;
+    // step one: get values from the page
+    let loanAmount = parseFloat(document.getElementById("loanAmount").value);
+    let numMonthlyPayments = parseInt(document.getElementById("numMonthlyPayments").value);
+    let interestRate = parseFloat(document.getElementById("interestRate").value);
 
-    displayMessage(msg);
-    
-    // this clears the input field after it's displayed
-    document.getElementById("txtMessage").value = '';
+    // step two: call buildSchedule
+    let payments = buildSchedule(loanAmount, interestRate, numMonthlyPayments);
+
+    // call displayData might need additional parameters
+    displayData(payments);
 }
 
+// build the amortization schedule
+function buildSchedule(amount, rate, term) {
+    let amortPayments = [];
+
+    let totalMonthlyPayment = (amount) * (rate / 1200) / (1 - (1 + rate / 1200) ** (-term));
+    let remainingBalance = amount;
+    let interestPayment = remainingBalance * rate / 1200;
+    let principalPayment = totalMonthlyPayment - interestPayment;
+    // remainingBalance = remainingBalance - principalPayment;
+    let totalInterest = interestPayment;
+
+    // let newRemainingBalance = remainingBalance - principalPayment;
 
 
-// Final Step, display the information (view, displays stuff on screen)
-function displayMessage(message) {
 
-    // first get the ol element from the page
-    element = document.getElementById("results");
+    for (let i = 1; i <= term; i++) {
 
-    // next create a new li element
-    let item = document.createElement("li");
+        let curPayment = {
+            month: 0,
+            payment: 0,
+            principal: 0,
+            interest: 0,
+            totalInterest: 0,
+            balance: 0
+        };
 
-    // add classes to li element
-    item.classList.add("list-group-item");
+        remainingBalance -= principalPayment;
+        // add data to object
+        curPayment.month = i;
+        curPayment.payment = totalMonthlyPayment.toFixed(2);
+        curPayment.principal = principalPayment.toFixed(2);
+        curPayment.interest = interestPayment.toFixed(2);
+        curPayment.totalInterest = totalInterest.toFixed(2);
+        curPayment.balance = remainingBalance.toFixed(2);
 
-    // set the message for the li element
-    item.innerHTML = message;
+        // add data from each object to array
+        amortPayments.push(curPayment);
 
-    element.appendChild(item);
+        
+        interestPayment = remainingBalance * rate / 1200;
+        totalInterest += interestPayment;
+        principalPayment = totalMonthlyPayment - interestPayment;
+    }
+
+    // return array of payment objects
+    return amortPayments;
+}
+
+// display the data
+// display the table of payments and the summary info at the top of the page
+function displayData(payments) { // may need additional parameters
+    // get a hook into the template
+    let template = document.getElementById("amortData-template");
+    // get hook into the table body
+    let amortBody = document.getElementById("amortBody");
+    // clear previous data
+    amortBody.innerHTML = "";
+
+    // loop over objects in payments array and write a row
+    // for each object into the body
+    for (let i = 0; i < payments.length; i++) {
+        // grab all nodes from the template (amortData-template), including
+        // child nodes (true
+        let amortRow = document.importNode(template.content, true);
+
+        // grab only and all the columns from the template
+        let amortCols = amortRow.querySelectorAll("td");
+
+        amortCols[0].textContent = payments[i].month;
+        amortCols[1].textContent = payments[i].payment;
+        amortCols[2].textContent = payments[i].principal;
+        amortCols[3].textContent = payments[i].interest;
+        amortCols[4].textContent = payments[i].totalInterest;
+        amortCols[5].textContent = payments[i].balance;
+
+        amortBody.appendChild(amortRow);
+    }
+
 }

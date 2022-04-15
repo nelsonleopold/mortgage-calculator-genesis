@@ -16,6 +16,19 @@ main>.container {
     margin-bottom: 5rem;
 }
 
+#btnCalcLoan {
+    color: #24A3B9;
+}
+
+.input-style {
+    background-color: #e6e6e6;
+}
+
+.table-head-custom {
+    background-color: #0B3B59;
+    color: white;
+}
+
 .form-label {
     color: var(--nl-secondary-color);
 }
