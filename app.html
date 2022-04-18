@@ -63,9 +63,9 @@
         </div>
     </nav>
 
-    <main class="flex-shrink-0">
-        <div class="container mt-5">
-            <h1 class="form-label">Mortgage Calculator:</h1>
+    <main class="flex-shrink-0 fs-">
+        <div class="container">
+            <h1 class="form-label mb-4">Mortgage Calculator:</h1>
             <div class="row">
                 <div class="col input-style">
                     <label for="txtMessage" class="form-label">Loan Amount:</label>
@@ -83,18 +83,29 @@
                 </div>
                 <div class="col loan-summary" id="loanSummary">
                     <!-- Loan data goes here -->
-                    <p>Your Monthly Payments</p>
-                    <p id="summaryMonthlyPayment">Amount of Monthly Payment</p>
-                    <p>Total Principal</p>
-                    <p>Total Interest</p>
-                    <p>Total Cost</p>
+                    <div class="row text-center">
+                        <p class="fst-italic fs-5">Your Monthly Payments</p>
+                        <p id="summaryMonthlyPayment">Amount of Monthly Payments</p>
+                    </div>
+                    <div class="row">
+                        <div class="col text-start">
+                            <p>Total Principal</p>
+                            <p>Total Interest</p>
+                            <p>Total Cost</p>
+                        </div>
+                        <div class="col text-end">
+                            <p id="summaryTotalPrincipal">$0.00</p>
+                            <p id="summaryTotalInterest">$0.00</p>
+                            <p id="summaryTotalCost">$0.00</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="message mt-5">
                     <table id="amortTable" class="table table-striped">
-                        <thead class="table-head-custom">
+                        <thead class="table-head-custom fs-6">
                             <th>Month</th>
                             <th>Payment</th>
                             <th>Principal</th>

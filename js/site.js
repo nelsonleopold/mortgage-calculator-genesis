@@ -51,7 +51,7 @@ function buildSchedule(amount, rate, term) {
         // add data from each object to array
         amortPayments.push(curPayment);
 
-        
+
         interestPayment = remainingBalance * rate / 1200;
         totalInterest += interestPayment;
         principalPayment = totalMonthlyPayment - interestPayment;
@@ -70,6 +70,35 @@ function displayData(payments) { // may need additional parameters
     let amortBody = document.getElementById("amortBody");
     // clear previous data
     amortBody.innerHTML = "";
+
+    // insert monthly payment amount into summary section
+    let sumMonPay = payments[0].payment;
+    document.getElementById("summaryMonthlyPayment").innerHTML = `$${sumMonPay}`;
+
+    // insert total prinicpal amount into summary section
+    let sumTotalPrincipal = parseFloat(payments[0].balance) + parseFloat(payments[0].principal);
+    document.getElementById("summaryTotalPrincipal").innerHTML = `$${sumTotalPrincipal.toLocaleString("en-US", 
+    {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+    })}`;
+
+    // insert total interest amount into summary section
+    let sumTotalInterest = parseFloat(payments[payments.length - 1].totalInterest);
+    document.getElementById("summaryTotalInterest").innerHTML = `$${sumTotalInterest.toLocaleString("en-US",
+    {
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+    })}`;
+
+    // insert total cost amount into summary section
+    // toFixed turns these into strings, so have to convert again
+    let sumTotalCost = parseFloat(sumTotalPrincipal) + parseFloat(sumTotalInterest);
+    document.getElementById("summaryTotalCost").innerHTML = `$${sumTotalCost.toLocaleString("en-US",
+    {
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+    })}`;
 
     // loop over objects in payments array and write a row
     // for each object into the body
