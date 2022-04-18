@@ -6,11 +6,23 @@ function getValues() {
     let numMonthlyPayments = parseInt(document.getElementById("numMonthlyPayments").value);
     let interestRate = parseFloat(document.getElementById("interestRate").value);
 
-    // step two: call buildSchedule
-    let payments = buildSchedule(loanAmount, interestRate, numMonthlyPayments);
+    // check input values for proper data types
+    if (isNaN(loanAmount)) {
+        alert("Enter a valid amount. Must be a number.");
+        document.getElementById("loanAmount").focus();
+    } else if (isNaN(numMonthlyPayments)) {
+        alert("Enter a valid payment term. Enther the number of monthly payments for the loan.");
+        document.getElementById("numMonthlyPayments").focus();
+    } else if (isNaN(interestRate)) {
+        alert("Enter a valid loan rate as a whole number. Eg. 3% should be entered as 3.");
+        document.getElementById("interestRate").focus();
+    } else {
+        // step two: call buildSchedule
+        let payments = buildSchedule(loanAmount, interestRate, numMonthlyPayments);
 
-    // call displayData might need additional parameters
-    displayData(payments);
+        // call displayData might need additional parameters
+        displayData(payments);
+    }
 }
 
 // build the amortization schedule
