@@ -33,15 +33,12 @@ function buildSchedule(amount, rate, term) {
     let remainingBalance = amount;
     let interestPayment = remainingBalance * rate / 1200;
     let principalPayment = totalMonthlyPayment - interestPayment;
-    // remainingBalance = remainingBalance - principalPayment;
+
     let totalInterest = interestPayment;
 
-    // let newRemainingBalance = remainingBalance - principalPayment;
+    for (let month = 1; month <= term; month++) {
 
-
-
-    for (let i = 1; i <= term; i++) {
-
+        // create payment object
         let curPayment = {
             month: 0,
             payment: 0,
@@ -53,7 +50,7 @@ function buildSchedule(amount, rate, term) {
 
         remainingBalance -= principalPayment;
         // add data to object
-        curPayment.month = i;
+        curPayment.month = month;
         curPayment.payment = totalMonthlyPayment.toFixed(2);
         curPayment.principal = principalPayment.toFixed(2);
         curPayment.interest = interestPayment.toFixed(2);
@@ -63,7 +60,7 @@ function buildSchedule(amount, rate, term) {
         // add data from each object to array
         amortPayments.push(curPayment);
 
-
+        // update non-static values
         interestPayment = remainingBalance * rate / 1200;
         totalInterest += interestPayment;
         principalPayment = totalMonthlyPayment - interestPayment;
